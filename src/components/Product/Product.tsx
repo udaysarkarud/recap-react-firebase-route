@@ -1,14 +1,17 @@
 import { useContext } from "react";
-import { IPropInfo } from "../../types";
+import { IProduct, IPropInfo } from "../../types";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Product = ({ info }: IPropInfo) => {
   const { title, description, price, thumbnail } = info;
 
   const { cart, setCart } = useContext(AuthContext);
-  const handleCart = (data) => {
-    setCart([...cart, data]);
-    console.log(cart);
+
+  const handleCart = (data: IProduct) => {
+    const newCart = cart.find((pd) => pd.id == data.id);
+    if (!newCart) {
+      setCart([...cart, data]);
+    }
   };
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
