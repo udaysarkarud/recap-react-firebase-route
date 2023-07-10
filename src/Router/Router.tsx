@@ -7,8 +7,9 @@ import Products from "../components/Products/Products";
 import Order from "../components/Order/Order";
 import Login from "../components/Login/Login";
 import Registration from "../components/Registration/Registration";
+import SecureRoute from "../SecureRoute/SecureRoute";
 
-const router = createBrowserRouter([
+const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
@@ -28,10 +29,15 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
+        loader: async () => fetch("https://dummyjson.com/products"),
       },
       {
         path: "order",
-        element: <Order />,
+        element: (
+          <SecureRoute>
+            <Order />
+          </SecureRoute>
+        ),
       },
       {
         path: "login",
@@ -59,4 +65,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+export default Router;

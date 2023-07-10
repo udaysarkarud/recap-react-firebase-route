@@ -6,7 +6,9 @@ function App() {
   return (
     <>
       <Header />
-      <Outlet />
+      <div className="bg-white">
+        <Outlet />
+      </div>
       <Footer />
     </>
   );
