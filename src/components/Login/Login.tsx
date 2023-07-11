@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { handleGoogleBtn, setUser } = useContext(AuthContext);
+  const newLocation = useNavigate();
+  const location = useLocation();
+
+  const handleLoginWithBtn = () => {
+    handleGoogleBtn()
+      .then((result) => {
+        setUser(result.user);
+        newLocation(location.state, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-col">
@@ -34,6 +50,11 @@ const Login = () => {
                   Login With Google?
                 </a>
               </label>
+            </div>
+            <div className="form-control mt-6">
+              <button onClick={handleLoginWithBtn} className="btn btn-primary">
+                Login with google
+              </button>
             </div>
 
             <div className="form-control mt-6">

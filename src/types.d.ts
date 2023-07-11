@@ -1,4 +1,4 @@
-export type Children = {
+export type IChildren = {
   children: JSX.Element | JSX.Element[];
 };
 
